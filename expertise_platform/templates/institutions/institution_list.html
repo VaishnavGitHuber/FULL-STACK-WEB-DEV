@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institution List</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-container input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #333;
+            color: #fff;
+        }
+        .search-container button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #777;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .institution-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .institution-item h2 {
+            margin: 0;
+        }
+        .institution-item p {
+            margin: 5px 0 0;
+            color: #aaa;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Institution List</h1>
+
+        <!-- Search Form -->
+        <div class="search-container">
+            <form method="GET" action="{% url 'institution_list' %}">
+                <input type="text" name="q" placeholder="Search for institutions..." value="{{ request.GET.q }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- List of Institutions -->
+        {% if institutions %}
+            <ul>
+                {% for institution in institutions %}
+                    <li class="institution-item">
+                        <h2><a href="{% url 'institution_profile' institution.pk %}">{{ institution.name }}</a></h2>
+                        <p>{{ institution.location }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No institutions available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

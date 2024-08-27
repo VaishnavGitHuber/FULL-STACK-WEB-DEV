@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ staff.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .certification {
+            margin-top: 10px;
+            text-align: left;
+        }
+        .certification a {
+            color: #00f;
+        }
+        .certification a:hover {
+            text-decoration: underline;
+        }
+        .enrollment {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .enrollment p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ staff.name }}</h1>
+        <p>Domain of Study: {{ staff.domain_of_study }}</p>
+        <p>Years of Experience: {{ staff.years_of_experience }}</p>
+        <p>Contact Details: {{ staff.contact_details }}</p>
+
+        <h2>Certifications</h2>
+        {% if staff.certifications %}
+            <div>
+                {% for cert in staff.certifications %}
+                    <div class="certification">
+                        <a href="{{ cert.url }}" target="_blank">{{ cert.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No certifications listed.</p>
+        {% endif %}
+
+        <h2>Current Project Enrollment</h2>
+        <div class="enrollment">
+            {% if staff.current_project %}
+                <p>Enrolled in: {{ staff.current_project }}</p>
+            {% else %}
+                <p>Not currently enrolled in any project.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
